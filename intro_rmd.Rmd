@@ -1,0 +1,214 @@
+---
+title: "Tokyo.R 98"
+subtitle: "RMarkdown入門"
+author: "niszet"
+date: "`r format(Sys.time(),'%Y/%m/%d')`"
+pagetitle: "Introduction to RMarkdown"
+#institute: ["niszet工房", "学生"]
+#toc: true
+#toc-title: "目次"
+output:
+  revealjs::revealjs_presentation:
+    theme: blood
+    history: false
+#    highlight: NULL
+#    keep_md: true
+    self_contained: false
+    slide_level: 2
+    highlight: "kate"
+    slideNumber: true
+#    incremental: true
+    reveal_options:
+      mouseWheel: true
+      slideNumber: "'c/t'"
+      navigationMode: linear
+      chalkboard:
+        theme: chalkboard
+      menu:
+        numbers: 'true'
+        markers: false
+#        width: 'wide'
+    reveal_plugins: ["menu", "chalkboard", "highlightjs", "fullscreen", "zoom", "notes", "embed-tweet", "search", "revealmarkdown"]
+    pandoc_args: [
+      "--section-divs"] #, "--toc", "--toc-depth=3"]
+---
+
+# RMarkdown入門
+
+## 自己紹介
+
+-   なまえ : niszet
+
+-   R歴 : 5年目?の初心者
+
+-   Twitter : @niszet0
+
+-   GitHub : <https://github.com/niszet>\
+    <img src="Figs/self.jpg" width="25%"/>
+
+-   今年はPandocの活動を再開したい
+
+# 本発表の流れ
+
+-   RMarkdownとは？
+-   RMarkdownを使うモチベーション
+-   環境
+-   機能概要/デモ
+
+# やめよう人力ドキュメント作成
+
+作図して手で貼り付け... 表を整形して手で張り付け... データが変わった時に同じ操作をしないといけない 人手なので作業にミスが入るかもしれない しばらくたってから同じ作業をしようとしても再現できない...
+
+→再現可能性を高めよう！
+
+-   RStudio IDEを使おう
+-   rmarkdownパッケージをインストールする
+-   日本語入力に少し難点がある（Windowsだけ？）
+
+# RMarkdown = R + Markdown
+
+-   R言語で書かれたプログラムの結果をドキュメントに埋め込んで生成できる。
+-   ドキュメント部分はMarkdownと呼ばれる記法を使って記述する。
+-   Markdown？
+    -   元々はhtmlを簡便に書くための記法
+    -   最近はいろいろなサービスで使われている（ただし方言が沢山ある）
+
+# まずは小さくはじめよう
+
+-   RMarkdownは最初から全部を追っていくのは大変
+-   使うだけなら難しくない！
+-   わからないことは r-wakalangへ！
+-   分析や実験の結果をhtml形式でまとめるところからはじめよう。
+-   Visual Editorを使って、慣れてきたらMarkdownを書けるようにしよう。
+
+# 実践、Visual Editor
+
+-   設定
+
+-   Grobal Setting
+
+-   Viewer Paneに出力させると便利（なときもある）
+
+-   ショートカットキーについて
+
+# 書式それぞれ
+
+-   段落の要素（ブロック要素）と段落内の要素（インライン要素）がある
+
+-   見出し
+
+-   リスト
+
+-   リンク
+
+-   相互参照
+
+-   コードブロック
+
+-   太字
+
+-   
+
+# citation
+
+DOIなどから、文献情報が拾ってこれるので良い。 R Packageについてはパッケージ名だけで検索できる。
+
+-   R, YAML, Markdown, Pandocのオプション、出力ファイルの見た目（HTMLのcss、docxのスタイル...）
+-   
+
+不慣れならVisual Editorがあるよ
+
+VisualからSourceへ書き戻すときに、記法が固定なので 既に書いたRMarkdownのコードをVisualモードに入れてSourceモードに戻すとファイルに差分が出るかも。
+
+# R Markdownを使うメリット/デメリット
+
+-   メリット
+    -   環境が別
+    -   静的ドキュメントとして残せる
+        -   Jupyterとはちがうので、ユーザが実行出来ない
+    -   構造化ドキュメント
+    -   様々なファイル形式の出力に対応。この資料もRMarkdownを使って作られています。
+-   デメリット
+    -   ドキュメントのビルド（変換・作成）に時間かかる。
+    -   ちょっとしたものを作って見てみるだけなら
+
+# RMarkdownの構造
+
+# YAMLフロントマター
+
+# チャンク
+
+Rのコードのまとまり。チャンク単位で実行することが出来る。 1つ前のチャンクまでを実行 このチャンクを実行
+
+チャンクに名前をつける
+
+# オプション
+
+# 何が作れるのか
+
+# 引用
+
+構造化文書 コンピュータ/Rに意味が分かるように印、記号をつけておくと、見出しにジャンプできるといったことが出来る。
+
+意味1 意味2→同じ見た目 意味3
+
+だと、意味1だけ見た目を変えたい場合に、同じ見た目の文章の中からどの意味かを人間が選別して直す必要がある。
+
+-   RMarkdown設定
+
+# 日本語
+
+いんたーねっつにある資料のリンク集
+
+R Markdown入門 <https://kazutan.github.io/kazutanR/Rmd_intro.html>
+
+R Markdown入門 <https://www.jaysong.net/rmarkdown-intro/>
+
+R ユーザー以外も知るべき R Markdown 入門/Introduction-to-R-markdown-for-Everyone <https://speakerdeck.com/ktgrstsh/introduction-to-r-markdown-for-everyone?slide=3>
+
+# 日本語の書籍
+
+-   初心者に特におすすめ。最初の1冊に。
+
+改訂2版 Rユーザのための RStudio［実践］入門 <https://gihyo.jp/book/2021/978-4-297-12170-9>
+
+Visual Editorの説明が載っている（おそらく現時点で唯一） 全体としてはやや中級者向け。宇宙船本の次
+
+Rが生産性を高める 〜データ分析ワークフロー効率化の実践 <https://gihyo.jp/book/2022/978-4-297-12524-0>
+
+-   ドキュメント作を
+
+再現可能性のすゝめ―RStudioによるデータ解析とレポート作成― <https://www.kyoritsu-pub.co.jp/bookdetail/9784320112438>
+
+-   knitrやPandocなど。やや古く、上級者向け。 ドキュメント・プレゼンテーション生成 <https://www.kyoritsu-pub.co.jp/bookdetail/9784320123724>
+
+# 英語の資料
+
+公式のドキュメント類
+
+RStudioのrmarkdownのページ <https://rmarkdown.rstudio.com/index.html>
+
+RMarkdown CheatSheet <https://rmarkdown.rstudio.com/lesson-15.HTML>
+
+RMarkdown Reference Guide
+
+R Markdown: The Definitive Guide <https://bookdown.org/yihui/rmarkdown/>
+
+# Markdownについて知りたい人
+
+Markdownライティング入門　プレーンテキストで気楽に書こう！ <https://nextpublishing.jp/book/10278.html>
+
+# Zotero
+
+Zoteroから参考文献リストを自動エクスポートする (PandocとZoteroで参考文献：前編) <https://zenn.dev/sky_y/articles/pandoc-advent-2020-bib1>
+
+Pandocで参考文献リストを処理する扱う方法 (PandocとZoteroで参考文献：後編) <https://zenn.dev/sky_y/articles/pandoc-advent-2020-bib2>
+
+# 引用の書式カスタマイズなど
+
+jpaRmd 日本心理学会の『心理学研究』への投稿用PDF原稿をRmarkdownで作成するためのテンプレートを提供するRパッケージ <https://ykunisato.github.io/jpaRmd/>
+
+RStudioで日本語論文を書く(1)jpaRmdテンプレート <https://ykunisato.github.io/ccp-lab-slide/tokyo-r-2021-03-06/tokyoR.html#1>
+
+RStudioで日本語論文を書く(2)文献処理をゴリゴリと\
+<https://speakerdeck.com/kosugitti/tokyo-dot-r-number-90-rstudioderi-ben-yu-lun-wen-woshu-ku-2>
