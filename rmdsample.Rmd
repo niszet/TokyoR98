@@ -1,0 +1,132 @@
+---
+# ここはYAMLフロントマター（YAMLヘッダ）です
+# RMarkdownの挙動を制御したり出力ファイルの形式を決めたりするブロック
+# このブロックは残念ながら入力補完がないので、先人の設定を真似するのが近道。
+title: "R MarkdownをViaualモードで簡単に体験しよう"
+subtitle: "手元で動かすドキュメント"
+author: "niszet"
+date: "2022/4/15"
+output: 
+  bookdown::html_document2: # 相互参照を使うなら。普通はhtml_documentで十分
+    keep_md: true
+    md_extension: "+task_lists"
+    toc: true
+    toc_float: true
+#  pdf_document:
+#    latex_engine: xelatex
+  
+editor_options: # visual editorの設定。
+  chunk_output_type: inline
+  markdown:
+#    wrap: sentence
+    canonical: true #trueでsourceモードでもvisualモードの記法で保存される
+    references: 
+      location: block
+      prefix: "rmd"
+---
+
+## R Markdown {#r-markdown}
+
+このドキュメントはR MarkdownをVisual Editorで執筆することに慣れるために、記法のサンプルを置いています。自 分で書き換えたり、Source modeとVisual modeを切り替えて記法の対応関係を覚えたりすることに使ってみてください。また、outputを色々と書き換えて、knitしてみてください。ただし、本ドキュメントで説明していない記法もあります。
+
+対象の書式にカーソルを置くとポップアップ表示が出たり、右側に(...)のボタンが表示されたり、エディタ上部の対応するボタンがハイライトされたりします。
+
+RStudioのマニュアル、[Visual R Markdown](https://rstudio.github.io/visual-markdown-editing/) もあわせて確認してみてください。
+
+## インライン要素 {#inline_element}
+
+文中の要素。文字やその装飾など。
+
+HTMLリンク： [第98回R勉強会\@東京](https://tokyor.connpass.com/event/244200/ "TokyoR"){#connpass_tokyor98}
+
+[![Link to TokyoR logo](https://connpass-tokyo.s3.amazonaws.com/thumbs/15/90/15907cf7459bda5fc33c06b8a878dfa1.png){#tokyor_logo .tokyor_logo width="220"}](https://connpass-tokyo.s3.amazonaws.com/thumbs/15/90/15907cf7459bda5fc33c06b8a878dfa1.png)
+
+画像への相互参照
+
+\@ref(inline_element)
+
+**太字**、*italic*、***bold and italic***、[下線]{.underline}、`Code`、~~打消し線~~、^上付き^、~下付き~、[SMALLCAPS]{.smallcaps}、脚注[^rmd1]
+
+[^rmd1]: 脚注はhtml形式の場合は一番下に表示される
+
+インライン数式は$\sin x +\cos x$のように、通常の文中に入れる数式の記法。
+
+### ブロック要素 {#block_element}
+
+いわゆる段落となる要素。行単位の要素（行単位でなく連続した文はひとつの段落と扱われます）
+
+-   リスト要素1
+
+-   リスト要素2
+
+1.  番号付きリスト
+
+2.  番号つきリスト
+
+    1.  [x] チェックボックス付きのリスト。使うには`md_extension: "+task_lists"の指定`が必要（このドキュメントのYAMLフロントマターを参考に）
+
+> ブロック引用。
+>
+> 主に複数行の引用をする場合に使用。
+
+コード記法。後述するコードチャンクと異なりコードであることを示すだけ（コードは実行されず、ハイライトされるだけ）
+
+``` r
+sum(1:10)
+```
+
+| ラインブロック。
+| 改行がそのまま維持されるので便利。出 力は地の文と区別がつかない。
+
+引用（citation）は[@rmarkdown]のような形式で書く。書式はcssやCSLなどを修正して対応してください。
+
+水平線は章以外で区切る時などに使用。
+
+------------------------------------------------------------------------
+
+シンプルな表。列ごとに左右中央寄せが出来る。表を手で書くことはあまりない。Rに任せよう。
+
+| Col1 | Col2 | Col3 |
+|:-----|:----:|-----:|
+| 11   |  12  |   13 |
+| 21   |  22  |   23 |
+
+ディスプレイ数式。レイアウト上行全体を使い、地の文と分ける時に使用。
+
+$$
+f(x)=\dfrac{1}{\sqrt{2\pi\sigma}}\exp(-\dfrac{(x-\mu)^ 2}{2\sigma^ 2})
+$$
+
+a
+
+### Attributes {#attributes .attribute}
+
+ID, class, key=valueなどが設定できる。Visual modeで表示されるので確認がしやすい。ファイル中のリンク先になるID、css設定のためのclassは使うことがある。他は応用レベル。
+
+## Rのコード
+
+コードブロックとインラインコードがある。イ ンラインコードは文中に入れることが出来、`r R.version.string` のように書き、knitするとコードが実行結果に置き換わりレンダリングされる。p ythonなどが指定できるコードブロックと違い、インラインコードはrのみ。
+
+Rのコードのまとまりをチャンクと呼び、チャンク単位で実行することが出来る。
+
+1つ前のチャンクまでを実行するボタンとこのチャンクを実行するボタンがある。
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(warning = TRUE, message = TRUE)
+library(tidyverse)
+```
+
+チャンクに名前をつけると相互参照などで使える。
+
+チャンクオプションを指定できる。`echo`、`eval`, `include` などは必須。他 は必要に応じて。`{` `}` の中で`,` を入力すると入力補完が出る
+
+```{r cars-plot, echo=F}
+plot(cars)
+a <- 1
+```
+
+table
+
+```{r}
+mtcars |> head() |> knitr::kable()
+```
