@@ -12,9 +12,9 @@ output:
     md_extension: "+task_lists"
     toc: true
     toc_float: true
-#  pdf_document:
-#    latex_engine: xelatex
-  
+    df_print: paged
+    code_folding: hide
+
 editor_options: # visual editorの設定。
   chunk_output_type: inline
   markdown:
@@ -23,11 +23,12 @@ editor_options: # visual editorの設定。
     references: 
       location: block
       prefix: "rmd"
+bibliography: references.bib
 ---
 
-## R Markdown {#r-markdown}
+# R Markdown {#r-markdown}
 
-このドキュメントはR MarkdownをVisual Editorで執筆することに慣れるために、記法のサンプルを置いています。自 分で書き換えたり、Source modeとVisual modeを切り替えて記法の対応関係を覚えたりすることに使ってみてください。また、outputを色々と書き換えて、knitしてみてください。ただし、本ドキュメントで説明していない記法もあります。
+このドキュメントはR MarkdownをVisual Editorで執筆することに慣れるために、記法のサンプルを置いています。自分で書き換えたり、Source modeとVisual modeを切り替えて記法の対応関係を覚えたりすることに使ってください。また、outputを色々と書き換えて、knitしてください。ただし、本ドキュメントで説明していない記法もあります。
 
 対象の書式にカーソルを置くとポップアップ表示が出たり、右側に(...)のボタンが表示されたり、エディタ上部の対応するボタンがハイライトされたりします。
 
@@ -35,15 +36,13 @@ RStudioのマニュアル、[Visual R Markdown](https://rstudio.github.io/visual
 
 ## インライン要素 {#inline_element}
 
-文中の要素。文字やその装飾など。
+インライン要素は文中の要素のこと。文字やその装飾など。
 
 HTMLリンク： [第98回R勉強会\@東京](https://tokyor.connpass.com/event/244200/ "TokyoR"){#connpass_tokyor98}
 
 [![Link to TokyoR logo](https://connpass-tokyo.s3.amazonaws.com/thumbs/15/90/15907cf7459bda5fc33c06b8a878dfa1.png){#tokyor_logo .tokyor_logo width="220"}](https://connpass-tokyo.s3.amazonaws.com/thumbs/15/90/15907cf7459bda5fc33c06b8a878dfa1.png)
 
-画像への相互参照
-
-\@ref(inline_element)
+画像への相互参照、図\@ref(fig:cars-plot)へリンクが貼られる。
 
 **太字**、*italic*、***bold and italic***、[下線]{.underline}、`Code`、~~打消し線~~、^上付き^、~下付き~、[SMALLCAPS]{.smallcaps}、脚注[^rmd1]
 
@@ -67,7 +66,7 @@ HTMLリンク： [第98回R勉強会\@東京](https://tokyor.connpass.com/event/
 
 > ブロック引用。
 >
-> 主に複数行の引用をする場合に使用。
+> 引用文に使用。
 
 コード記法。後述するコードチャンクと異なりコードであることを示すだけ（コードは実行されず、ハイライトされるだけ）
 
@@ -76,11 +75,11 @@ sum(1:10)
 ```
 
 | ラインブロック。
-| 改行がそのまま維持されるので便利。出 力は地の文と区別がつかない。
+| 改行がそのまま維持されるので便利。出力は地の文と区別がつかない。
 
-引用（citation）は[@rmarkdown]のような形式で書く。書式はcssやCSLなどを修正して対応してください。
+引用（citation）は [@rmarkdown] のような形式で書く。書式はcssやCSLなどを修正して対応してください。
 
-水平線は章以外で区切る時などに使用。
+水平線で区切るコトが出来る。
 
 ------------------------------------------------------------------------
 
@@ -91,42 +90,77 @@ sum(1:10)
 | 11   |  12  |   13 |
 | 21   |  22  |   23 |
 
-ディスプレイ数式。レイアウト上行全体を使い、地の文と分ける時に使用。
+ディスプレイ数式。レイアウト上で行全体を使い、地の文と分ける時に使用。
 
 $$
 f(x)=\dfrac{1}{\sqrt{2\pi\sigma}}\exp(-\dfrac{(x-\mu)^ 2}{2\sigma^ 2})
 $$
 
-a
+用語等を定義するためのDefinition Listがある。
 
-### Attributes {#attributes .attribute}
+定義リストの用語
 
-ID, class, key=valueなどが設定できる。Visual modeで表示されるので確認がしやすい。ファイル中のリンク先になるID、css設定のためのclassは使うことがある。他は応用レベル。
+:   定義リストの説明
+
+### Attributes {#attributes .attribute attr="bute" style="attribute"}
+
+ID, class, key=valueなどが設定できる。Visual modeでは表示されるので確認しやすい。ファイル中のリンク先になるID、css設定のためのclassなど。
 
 ## Rのコード
 
-コードブロックとインラインコードがある。イ ンラインコードは文中に入れることが出来、`r R.version.string` のように書き、knitするとコードが実行結果に置き換わりレンダリングされる。p ythonなどが指定できるコードブロックと違い、インラインコードはrのみ。
+コードブロックとインラインコードがある。イ ンラインコードは文中に入れることが出来、`r R.version.string` のように書き、knitするとコードが実行結果に置き換わりレンダリングされる。pythonなどが指定できるコードブロックと違い、インラインコードはrのみ。
 
 Rのコードのまとまりをチャンクと呼び、チャンク単位で実行することが出来る。
 
-1つ前のチャンクまでを実行するボタンとこのチャンクを実行するボタンがある。
+1つ前のチャンクまでを実行するボタンと、このチャンクを実行するボタンがある。
+
+このボタンで実行するとき、Rの環境はR Markdownの環境ではなく、RStudioの環境なので注意（既に環境中にある変数に影響がある・影響を受ける）
+
+```{r}
+(a <- 1) #()で囲むと代入した値が出力される
+```
+
+チャンク名を`setup`にすると、チャンク実行時の前処理として実行される。
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(warning = TRUE, message = TRUE)
 library(tidyverse)
 ```
 
-チャンクに名前をつけると相互参照などで使える。
+また、チャンクに名前をつけると相互参照などで参照できる。
 
 チャンクオプションを指定できる。`echo`、`eval`, `include` などは必須。他 は必要に応じて。`{` `}` の中で`,` を入力すると入力補完が出る
 
-```{r cars-plot, echo=F}
+```{r cars-plot, echo=F, fig.width=4, fig.height=4, fig.cap="cars plot"}
 plot(cars)
-a <- 1
 ```
 
-table
+```{r mtcars-ggplot}
+ggplot(mtcars, aes(x=wt ,y=mpg,color=hp))+geom_point()
+```
+
+表はYAML中で `df_print` を指定する、チャンク内に `paged.print=TRUE` を指定するなどするとページ区切りの表になる。表を作るパッケージも沢山あり、 `knitr::kable` 、 `kableExtra` 、 `flextable` 、 `gtsummary` 、 `skimr` パッケージなどがある（単純な表作成だけではなく、集計をするパッケージも含む）
+
+```{r paged.print=TRUE}
+mtcars
+```
+
+## 集計パッケージいろいろ {.tabset}
+
+### gtsummary
 
 ```{r}
-mtcars |> head() |> knitr::kable()
+mtcars |> gtsummary::tbl_summary()
+```
+
+### flextable
+
+```{r}
+mtcars |> flextable::flextable()
+```
+
+### skimr
+
+```{r}
+mtcars |> skimr::skim()
 ```
