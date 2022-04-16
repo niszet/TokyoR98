@@ -5,7 +5,7 @@
 title: "R MarkdownをViaualモードで簡単に体験しよう"
 subtitle: "手元で動かすドキュメント"
 author: "niszet"
-date: "2022/4/15"
+date: "2022/4/16"
 output: 
   bookdown::html_document2: # 相互参照を使うなら。普通はhtml_documentで十分
     keep_md: true
